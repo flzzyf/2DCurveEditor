@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+2DCurveEditor/Library/
+2DCurveEditor/obj/
+2DCurveEditor/logs/
