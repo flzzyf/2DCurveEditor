@@ -156,7 +156,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 529633054}
   - component: {fileID: 529633053}
+  - component: {fileID: 529633055}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -234,15 +235,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path:
     points:
-    - {x: -1, y: 0}
-    - {x: -0.5, y: 0.5}
-    - {x: 0.5, y: -0.5}
-    - {x: 1, y: 0}
-    - {x: 1.5, y: 0.5}
-    - {x: 0.78739053, y: -1.6139066}
-    - {x: -0.48442972, y: -1.3222563}
-    autoSetControlPoints: 0
-    isClosed: 0
+    - {x: -4.473649, y: 1.0571973}
+    - {x: -5.899002, y: -1.7848115}
+    - {x: 1.8225484, y: 0.892046}
+    - {x: 1.0000005, y: -2.1791203}
+    - {x: 0.3976848, y: -4.4280005}
+    - {x: -2.3907235, y: -4.1827188}
+    - {x: -3.6560223, y: -2.228425}
+    - {x: -5.15646, y: 0.08904743}
+    - {x: -3.8060186, y: 1.5380713}
+    - {x: -1.3430426, y: 2.7853646}
+    - {x: 1.2723739, y: 4.1098566}
+    - {x: 2.9274397, y: 4.148301}
+    - {x: 4.402217, y: 1.6145856}
+    - {x: 5.395464, y: -0.09184551}
+    - {x: 4.727695, y: -1.1571081}
+    - {x: 3.1768396, y: -2.1393776}
+    - {x: -0.3254838, y: -4.3576536}
+    - {x: -2.6150904, y: 4.7629733}
+    autoSetControlPoints: 1
+    isClosed: 1
   moveCorrespondingControlPoint: 1
 --- !u!4 &529633054
 Transform:
@@ -258,3 +270,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &529633055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529633052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9247273c7142483b99dc5c83777ecd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacing: 0.1
+  resolution: 1

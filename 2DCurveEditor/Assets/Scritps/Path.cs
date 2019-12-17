@@ -198,11 +198,55 @@ public class Path
             {
                 anchorIndex = LoopIndex(anchorIndex);
                 correspindingControlIndex = LoopIndex(correspindingControlIndex);
-                float distance = (points[anchorIndex] - points[correspindingControlIndex]).magnitude;
+                float distance = (points[anchorIndex] - pos).magnitude;
                 Vector2 dir = (points[anchorIndex] - pos).normalized;
                 points[correspindingControlIndex] = points[anchorIndex] + distance * dir;
             }
         }
+    }
+
+    //计算出曲线上的均匀分布的点集
+    public Vector2[] CalculateEvenlySpacedPoints(float spacing, float resolution = 1)
+    {
+        List<Vector2> evenlySpacedPoints = new List<Vector2>();
+        evenlySpacedPoints.Add(points[0]);
+        Vector2 previousPoint = points[0];
+        float distanceSinceLastPoint = 0;
+
+        //遍历每一段
+        for (int segmentIndex = 0; segmentIndex < NumOfSegments; segmentIndex++)
+        {
+            Vector2[] ps = GetPointsInSegemnt(segmentIndex);
+
+            //估计曲线长度
+            float controlNetLength = Vector2.Distance(ps[0], ps[1]) + Vector2.Distance(ps[1], ps[2]) +
+                Vector2.Distance(ps[1], ps[2]);
+            float estimatedCurveLength = Vector2.Distance(ps[0], ps[3]) + controlNetLength / 2f;
+
+            int divisions = Mathf.CeilToInt(estimatedCurveLength * resolution * 10);
+
+            float t = 0;
+
+            while(t <= 1)
+            {
+                t += 1f / divisions;
+                Vector2 pointOnCurve = Bezier.EvaluateCubic(ps[0], ps[1], ps[2], ps[3], t);
+                distanceSinceLastPoint += Vector2.Distance(pointOnCurve, previousPoint);
+
+                while(distanceSinceLastPoint >= spacing)
+                {
+                    float overShotDistance = distanceSinceLastPoint - spacing;
+                    Vector2 newEvenlySpacedPoint = pointOnCurve + (previousPoint - pointOnCurve).normalized * overShotDistance;
+                    evenlySpacedPoints.Add(newEvenlySpacedPoint);
+                    distanceSinceLastPoint = overShotDistance;
+                    previousPoint = newEvenlySpacedPoint;
+                }
+
+                previousPoint = pointOnCurve;
+            }
+        }
+
+        return evenlySpacedPoints.ToArray();
     }
 
     #region 自动调整控制点位置
