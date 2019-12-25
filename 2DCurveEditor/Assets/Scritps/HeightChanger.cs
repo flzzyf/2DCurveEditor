@@ -23,6 +23,16 @@ public class HeightChanger : MonoBehaviour
         objectInitialHeightDic = new Dictionary<GameObject, float>();
     }
 
+    private void OnDrawGizmos()
+    {
+        Path path = GetComponent<PathCreator>().path;
+        points = path.CalculateEvenlySpacedPoints(spacing, resolution);
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            Gizmos.DrawLine(points[i], points[i + 1]);
+        }
+    }
+
     void Update()
     {
         if(objectInitialHeightDic.Count > 0)
@@ -30,6 +40,11 @@ public class HeightChanger : MonoBehaviour
             foreach (var item in objectInitialHeightDic)
             {
                 Transform target = item.Key.transform;
+
+                //如果不在点集范围内，跳过
+                if (target.position.x < points[0].x || target.position.x > points[points.Length - 1].x)
+                    continue;
+
                 target.position = new Vector2(target.position.x, GetHeight(target.position.x));
             }
         }
@@ -55,19 +70,23 @@ public class HeightChanger : MonoBehaviour
     float GetHeight(float x)
     {
         //找到相邻的两个高度点，根据X坐标比例，设置高度
-
-        //找出离该点X坐标最近的点
-        int nearestIndex = 0;
-
-        for (int i = 1; i < points.Length; i++)
+        //左边的点
+        int rightPointIndex = 0;
+        for (int i = 0; i < points.Length; i++)
         {
-            float dist = Mathf.Abs(points[i].x - x);
-            if (dist < Mathf.Abs(points[nearestIndex].x - x))
+            if(x < points[i].x)
             {
-                nearestIndex = i;
+                rightPointIndex = i;
+
+                break;
             }
         }
 
-        return points[nearestIndex].y;
+        int leftPointIndex = rightPointIndex - 1;
+
+        float percent = (x - points[leftPointIndex].x) / (points[rightPointIndex].x - points[leftPointIndex].x);
+        float y = (points[rightPointIndex].y - points[leftPointIndex].y) * percent + points[leftPointIndex].y;
+
+        return y;
     }
 }

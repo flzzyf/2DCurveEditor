@@ -344,11 +344,11 @@ MonoBehaviour:
     points:
     - {x: -4.285328, y: -0.17693722}
     - {x: -3.1896079, y: 0.70015174}
-    - {x: -1.0043311, y: 1.7348772}
-    - {x: 1.7628174, y: 1.6890463}
-    - {x: 4.529966, y: 1.6432153}
-    - {x: 6.5093365, y: 0.640191}
-    - {x: 7.7492204, y: -0.24448645}
+    - {x: -1.2130007, y: 1.804435}
+    - {x: 1.5541478, y: 1.7586038}
+    - {x: 4.3212967, y: 1.7127731}
+    - {x: 6.4919477, y: 0.692358}
+    - {x: 7.7318316, y: -0.19231915}
     autoSetControlPoints: 0
     isClosed: 0
   moveCorrespondingControlPoint: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c6fe83fa3773c64abd67efd846db522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 0.1
+  spacing: 3
   resolution: 1
   pathCreator: {fileID: 0}
 --- !u!1 &717111020
@@ -481,7 +481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &826193561
 Rigidbody2D:
   serializedVersion: 4
@@ -655,7 +655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &911674194
 Rigidbody2D:
   serializedVersion: 4
