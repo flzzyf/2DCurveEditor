@@ -1,32 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BezierPath;
 
+[RequireComponent(typeof(PathCreator))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class HeightChanger : MonoBehaviour
 {
     public float spacing = .1f;
     public float resolution = 1;
-
-    public PathCreator pathCreator;
 
     Vector2[] points;
 
     //物体及其初始高度字典
     Dictionary<GameObject, float> objectInitialHeightDic;
 
+    PathCreator creator;
+
     void Awake()
     {
-        Path path = GetComponent<PathCreator>().path;
+        creator = GetComponent<PathCreator>();
+        Path path = creator.path;
 
         points = path.CalculateEvenlySpacedPoints(spacing, resolution);
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = (Vector2)creator.transform.position + points[i] * creator.transform.lossyScale.x;
+        }
 
         objectInitialHeightDic = new Dictionary<GameObject, float>();
     }
 
     private void OnDrawGizmos()
     {
-        Path path = GetComponent<PathCreator>().path;
+        creator = GetComponent<PathCreator>();
+        Path path = creator.path;
         points = path.CalculateEvenlySpacedPoints(spacing, resolution);
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = (Vector2)creator.transform.position + points[i] * creator.transform.lossyScale.x;
+        }
+
         for (int i = 0; i < points.Length - 1; i++)
         {
             Gizmos.DrawLine(points[i], points[i + 1]);
